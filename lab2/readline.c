@@ -3,22 +3,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_LEN 255
+#define MAX_LEN 101
 
 
 int read_line(char *str){
     
-    fgets(str, MAX_LEN,stdin);
-    int i=0;
-    for (i=0;i<MAX_LEN;i++) {
-        if (str[i]=='\0') 
-            break;
-        else if  (str[i]=='\n') {
-            str[i]='\0';
-            break;
-        }
+    int pos = 0;
+    char key;
+    while (pos < 100) {
+        key = fgetc(stdin);
+        if (key !=EOF && key != '\n' && key!= '\0')
+            str[pos++] =  key;
+        else break;
     }
-    if (feof(stdin)) return -1;
-    return i;
+    str[pos] = '\0';
+    if (key == EOF)
+        return -1;
+    
+    return pos;
 
 }

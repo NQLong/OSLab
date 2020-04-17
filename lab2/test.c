@@ -1,8 +1,11 @@
 #include <stdio.h>
 
-int main (){
-    char temp;
-    scanf("%c",&temp);
-    while (temp!=EOF)
-        scanf("%c",&temp);
+int main (int argc,char * argv[]){
+    int i =0;
+    char x;
+    do {
+        fgetc(stdin);
+
+    }
+    while (x!=EOF);
 }
