@@ -10,7 +10,7 @@
 **the program will provide you a tool to look up if substr in strings that you provide  **
 **the program has 2 mode :                                                              **
 **    if the program has 2 or more argument (argc >=3):                                 **
-**        we read the first argument as substr                                          **
+**        we read the last argument as substr                                          **
 **        the rest as file's names that we read and look up the substr                  **
 **    if the program has argc = 1:                                                      **
 **        we read input of strings from users keybord and than substr                   **
@@ -35,48 +35,51 @@ int main (int argc, char* argv[]){
     //get the input string from keyboard and than the sub string
     if (argc < 3)
     {   
-        printf("input your strings : ");
         do {
             len = read_line(str[line++]);
-            
         }
         while (len!=-1);
         printf("\n");
-        printf("input your substr : ");
         len = read_line(substr);
-        printf("\n");
+        if (len==-1) printf("\n");
     }
 
 
     //if arguments bigger or equal with 3
-    //than we take the first argument as substr 
+    //than we take the last argument as substr 
     //and the rest as file's name
     else if (argc >= 3) {
-        //get substr
-        i=0;
-        while (1) {
-            substr[i] = argv[0][i];
-            if (substr[i]=='\0') 
-                break;
-            i++;
-        }
+        
         //get strings from file
-        for (i = 2; i < argc;i++) {
+        for (i = 1; i < argc-1;i++) {
             FILE* inp;
             inp = fopen(argv[i],"r");
             stdin = inp;
             do {
                 len = read_line(str[line++]);
-                
+                //printf("%s\n%d\n",str[line-1],len);
             }
             while (len!=-1);
             fclose(inp);
         }
+
+        //get substr
+        i=0;
+        while (1) {
+            substr[i] = argv[argc-1][i];
+            if (substr[i]=='\0') 
+                break;
+            i++;
+        }
     }  
+
+
     //start checking whether the substr in strings
         for (i = 0; i < line; i++){
             temp = find_sub_string(str[i], substr);
-            if (temp!=-1) printf("%d|%s|\n",i, str[i]);   
+            if (temp!=-1) {
+                printf("%s\n", str[i]);
+            }   
         }
     
 
