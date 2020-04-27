@@ -6,7 +6,6 @@ int main() {
     i=fork();
     i=fork();
     printf("%d",getpid());
-    while (1) {
-        sleep(100);
-    }
+    pid_t test = getpid();
+    printf("%d\n\n",test);
 }
