@@ -49,7 +49,7 @@ int main (int argc, char* argv[]){
 
 
     //if arguments bigger or equal with 3
-    //than we take the first argument as substr 
+    //than we take the last argument as substr 
     //and the rest as file's name
     else if (argc >= 3) {
         //get substr
@@ -71,9 +71,10 @@ int main (int argc, char* argv[]){
             }
             while (len!=-1);
             fclose(inp);
+            
         }
     }  
-    //start checking whether the substr in strings
+
         for (i = 0; i < line; i++){
             temp = find_sub_string(str[i], substr);
             if (temp!=-1) printf("%d|%s|\n",i, str[i]);   
