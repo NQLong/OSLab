@@ -2,9 +2,9 @@
 #include <unistd.h>
 
 int main() {
-    fork();
-    fork();
-    fork();
+    int i =fork();
+    i=fork();
+    i=fork();
     printf("%d",getpid());
     while (1) {
         sleep(100);
