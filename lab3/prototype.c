@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <cstring>
+#include <string.h>
 
 int dividedby2(char *str) {
     if ((int)str[strlen(str)-1]%48%2==0)
