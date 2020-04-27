@@ -25,16 +25,19 @@ int dividedby5(char *str) {
     return 0;
 }
 int read_line(char *str){
-    fgets(str,79,stdin);
+    fgets(str,100,stdin);
     int pos = 0;
-    for (pos = 0; pos <80-1;pos++){
+    for (pos = 0; pos <100-1;pos++){
         if (str[pos]==EOF ||str[pos]=='\n' || str[pos]=='\0' || (int)str[pos]<0)
             break;
     }
-   
+    char temp = str[pos];
     str[pos]='\0';
+    if (feof(stdin) || temp == EOF || (int)temp<0 )
+        return -1;
     return pos;
 }
+
 int main (){
     int arr[3]={0,0,0};
     FILE *testcase;
@@ -42,8 +45,8 @@ int main (){
     int len;
     char str[80];
     stdin = testcase;
-    while (!feof(testcase)) {
-        len = read_line(str);
+    while (len = read_line(str)!= -1) {
+        
         if (dividedby2(str)) arr[0]+=1;
         if (dividedby3(str)) arr[1]+=1;
         if (dividedby5(str)) arr[2]+=1;
