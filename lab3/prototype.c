@@ -7,7 +7,7 @@ int dividedby2(char *str) {
     return 0;
 }
 
-int devidedby3(char * str){
+int dividedby3(char * str){
     int sum = 0;
     int i =0;
     while (str[i]!='\0') {
@@ -18,31 +18,30 @@ int devidedby3(char * str){
     return 0;
 }
 
-int dividedby2(char *str) {
+int dividedby5(char *str) {
     int lastdigit = (int)str[strlen(str)-1]%48;
     if (lastdigit == 0 || lastdigit == 5)
         return 1;
     return 0;
 }
 int read_line(char *str){
-    fgets(str,MAX_LEN,stdin);
+    fgets(str,79,stdin);
     int pos = 0;
-    for (pos = 0; pos <MAX_LEN-1;pos++){
+    for (pos = 0; pos <80-1;pos++){
         if (str[pos]==EOF ||str[pos]=='\n' || str[pos]=='\0' || (int)str[pos]<0)
             break;
     }
-    char temp = str[pos];
+   
     str[pos]='\0';
-    if (feof(stdin) || temp == EOF || (int)temp<0 )
-        return -1;
     return pos;
 }
 int main (){
-    int arr[3]=0;
+    int arr[3]={0,0,0};
     FILE *testcase;
-    testcase = fopen("number.txt");
+    testcase = fopen("number.txt","r");
     int len;
     char str[80];
+    stdin = testcase;
     while (!feof(testcase)) {
         len = read_line(str);
         if (dividedby2(str)) arr[0]+=1;
