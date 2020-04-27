@@ -11,7 +11,8 @@ int dividedby3(char * str){
     int sum = 0;
     int i =0;
     while (str[i]!='\0') {
-        sum += (int)str[i]%48;
+        sum += (int)str[i++]%48;
+        
     }
     if (sum % 3 == 0)
         return 1;
