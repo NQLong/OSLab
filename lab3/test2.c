@@ -1,13 +1,16 @@
-#include<stdlib.h>
-#include<stdio.h>
-#include<unistd.h>/*definesfork(),andpid_t.*/
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <signal.h>
+#include <sys/types.h>
+
 int main(int argc,char **argv){
 pid_t child_pid;
 sigset_t mask,oldmask;
 /*letsforkoffachildprocess...*/
 child_pid=fork();
 /*checkwhatthefork()callactuallydid*/
-if(child_pid==−1){
+if(child_pid==-1){
 perror("fork");/*printasystem−definederror
 message*/
 exit(1);
@@ -21,10 +24,10 @@ sigaddset(&mask,SIGUSR1);
 /*Waitforasignaltoarrive.*/
 sigprocmask(SIG_BLOCK,&mask,&oldmask);
 while(!usr_interrupt)
-sigsuspend(&oldmask);
-sigprocmask(SIG_UNBLOCK,&mask,NULL);
-printf("World!\n");
-fflush(stdout);
+    sigsuspend(&oldmask);
+    sigprocmask(SIG_UNBLOCK,&mask,NULL);
+    printf("World!\n");
+    fflush(stdout);
 }
 else{
 /*fork()succeeded,we’reinsidetheparentprocess*/
