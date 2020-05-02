@@ -11,11 +11,11 @@ void* aligned_malloc (unsigned int size , unsigned int align ) {
     ptr = sbrk(0);
     printf("%d\n", &*ptr);
     ptr = getaddress(ptr,align);
-    ptr = sbrk(0);
+    brk(ptr);
     printf("%d\n", &*ptr);
     while (sbrk(size)==(void*)-1){
         ptr = getaddress(ptr,align);
-        ptr = sbrk(0);
+        brk(ptr);
     }
     ptr = sbrk(0);
     printf("%d\n", &*ptr);
