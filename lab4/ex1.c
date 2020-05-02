@@ -20,5 +20,5 @@ void* aligned_free (void *ptr){
 }
 
 int main() {
-    void * ptr = aligned_malloc(15,15);
+    void * ptr = aligned_malloc(30,15);
 }
