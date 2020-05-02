@@ -4,7 +4,7 @@ void* aligned_malloc (unsigned int size , unsigned int align ) {
     void * ptr;
     
     ptr = sbrk(0);
-    printf("%d", &*ptr);
+    printf("%d\n", &*ptr);
     while ((int)&*ptr % align != 0) {
         &*ptr++;
     }

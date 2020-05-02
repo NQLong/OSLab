@@ -16,5 +16,6 @@ void print_func (){
 }
 int main( int argc , char **argv ) {
     print_func ( ) ;
-    return 0;
+    for (;;);
+	return 0;
 }
