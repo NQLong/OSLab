@@ -7,6 +7,7 @@ void* aligned_malloc (unsigned int size , unsigned int align ) {
     printf("%p\n",&*ptr);
     printf("%d\n",&ptr);
     printf("%d\n",&*ptr);
+    printf("%d\n",int(&*ptr));
 }
 
 void* aligned_free (void *ptr){
