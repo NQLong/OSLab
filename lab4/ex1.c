@@ -16,6 +16,7 @@ void* aligned_malloc (unsigned int size , unsigned int align ) {
         ptr = getaddress(ptr,align);
         ptr = sbrk(0);
     }
+    ptr = sbrk(0);
     printf("%d\n", &*ptr);
     
     
