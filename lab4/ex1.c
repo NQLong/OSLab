@@ -2,13 +2,13 @@
 
 void* aligned_malloc (unsigned int size , unsigned int align ) {
     void * ptr;
+    
     ptr = sbrk(0);
-    printf("%p\n",&ptr);
-    printf("%p\n",&*ptr);
-    printf("%d\n",&ptr);
-    printf("%d\n",&*ptr);
-    int i = (int)(&*ptr);
-    printf("%d\n",i);
+    printf("%d", &*ptr);
+    while ((int)&*ptr % align != 0) {
+        &*ptr++;
+    }
+    printf("%d", &*ptr);
 }
 
 void* aligned_free (void *ptr){
