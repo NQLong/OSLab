@@ -3,8 +3,8 @@
 struct MyMemBlock *Head = NULL;
 
 void* GetAlignedAddress(void * ptr,int align) {
-    if ((int)&*ptr%align != 0) {
-        &*ptr += align - (int)&*ptr%align;
+    while ((int)&*ptr%align != 0) {
+        &*ptr++;
     }
     return ptr;
 }
