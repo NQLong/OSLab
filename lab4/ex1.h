@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
+// #include <sys/types.h>
+// #include<stddef.h>
 
 struct MyMemBlock {
     unsigned int size;
@@ -21,4 +23,4 @@ struct MyMemBlock * SplitBlock (unsigned int size,struct MyMemBlock* cur);
 
 void * aligned_free (void *ptr );
 
-struct MyMemBlock * SplitBlock (unsigned int size,struct MyMemBlock* prev,MyMemBlock* cur);
+struct MyMemBlock * SplitBlock (unsigned int size,struct MyMemBlock* prev,struct MyMemBlock* cur);

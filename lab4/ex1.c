@@ -14,6 +14,7 @@ struct MyMemBlock * CheckAvailableBlock (unsigned int size,struct MyMemBlock* cu
         prev = cur;
         cur = cur -> next;
     }
+    return NULL;
 }
 
 void* aligned_malloc (unsigned int size , unsigned int align ){
