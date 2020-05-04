@@ -19,8 +19,6 @@ void* aligned_malloc (unsigned int size , unsigned int align );
 
 struct MyMemBlock * NewMemBlock (unsigned int size,struct MyMemBlock* cur);
 
-struct MyMemBlock * SplitBlock (unsigned int size,struct MyMemBlock* cur);
+struct MyMemBlock * SplitBlock (unsigned int size,struct MyMemBlock* cur,struct MyMemBlock* prev);
 
 void * aligned_free (void *ptr );
-
-struct MyMemBlock * SplitBlock (unsigned int size,struct MyMemBlock* prev,struct MyMemBlock* cur);
