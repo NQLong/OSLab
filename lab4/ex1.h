@@ -1,16 +1,24 @@
-#include <unistd.h>
 #include <stdio.h>
-#include <stdlib.h>
+#include <unistd.h>
 
-struct mylist {
-    unsigned long maddress;
+struct MyMemBlock {
+    unsigned int size;
     int status;
-    size_t size;
-    struct mylist next;
+    struct MyMemBlock * next;
 };
 
-void* getaddress(void *ptr, unsigned int align);
+struct MyMemBlock* Head;
 
-void* aligned_malloc (unsigned int size , unsigned int align ) ;
+void* GetAlignedAddress(void * ptr,int align);
 
-void* aligned_free (void *ptr);
+struct MyMemBlock * CheckAvailableBlock (unsigned int size,struct MyMemBlock* cur,struct MyMemBlock* prev);
+
+void* aligned_malloc (unsigned int size , unsigned int align );
+
+struct MyMemBlock * NewMemBlock (unsigned int size,struct MyMemBlock* cur);
+
+struct MyMemBlock * SplitBlock (unsigned int size,struct MyMemBlock* cur);
+
+void * aligned_free (void *ptr );
+
+struct MyMemBlock * SplitBlock (unsigned int size,struct MyMemBlock* prev,MyMemBlock* cur);
