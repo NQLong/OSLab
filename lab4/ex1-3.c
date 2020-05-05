@@ -26,29 +26,49 @@ struct myMem *newMem (unsigned int size, unsigned int align){
     return temp;
 }
 
+struct myMem* findFreeSpace(struct myMem** prev,unsigned int size,unsigned int align){
+    struct myMem* cur;
+    cur = Head;
+    while (cur && !(cur->size>=size+align && cur->status==0)){
+        *prev = cur;
+        cur = cur ->next;
+    }
+    return cur;
+}
+
 void* aligned_malloc(unsigned int size, unsigned int align){
     struct myMem* temp;
     if (!Head){
         temp = newMem(size,align);
-        printf("%d temp address\n",&*(void*)temp);
         if (!temp) return NULL;
-        void *ptr1 = temp+1;
-        printf("%d ptr1\n",&*ptr1);
-        size_t addr=(size_t)ptr1+align+sizeof(size_t);
-        void *ptr2 = (void *)(addr - (addr%align));
-        printf("%d ptr2\n",&*ptr2);
-        *((size_t *)ptr2-1)=(size_t)ptr1;
-        return ptr2;
     }
     else {
-        return 0;
+        struct myMem* prev = Head;
+        temp = findFreeSpace(&prev,size,align);
+        if (!temp) {
+            prev->next = newMem(size,align);
+            if (!prev->next) return NULL;
+            temp = prev->next;
+        }
     }
+     printf("%d temp address\n",&*(void*)temp);
+    void *ptr1 = temp+1;
+    printf("%d ptr1\n",&*ptr1);
+    size_t addr=(size_t)ptr1+align+sizeof(size_t);
+    void *ptr2 = (void *)(addr - (addr%align));
+    printf("%d ptr2\n",&*ptr2);
+    *((size_t *)ptr2-1)=(size_t)ptr1;
+    return ptr2;
 }
 
 
 int main(){
-    void *ptr = aligned_malloc(30,5);
-
+    void *ptr1 = aligned_malloc(30,5);
+    printf("%d ptr1 address\n",&*ptr1);
+    printf("_____________________________________________________");
+    printf("_____________________________________________________");
+    void *ptr2 = aligned_malloc(30,5);
+    printf("%d ptr2 address\n",&*ptr2);
     // void *ptr2 = aligned_malloc(30,5);
     // ((struct myMem*)Head)->status =0;
     // void* ptr3 = aligned_malloc(10,6);
