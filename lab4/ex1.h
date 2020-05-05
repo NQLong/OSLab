@@ -5,8 +5,8 @@
 
 struct MyMemBlock {
     unsigned int size;
-    int status;
     struct MyMemBlock * next;
+    int status;
 };
 
 struct MyMemBlock* Head;

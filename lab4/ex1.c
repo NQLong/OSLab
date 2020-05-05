@@ -1,55 +1,83 @@
-#include "ex1.h"
+#include <stdio.h>
+#include <unistd.h>
 
-struct MyMemBlock *Head = NULL;
+struct myMem {
+    unsigned int size;
+    struct myMem* next;
+    int status;
+};
 
+#define EXTRA sizeof(struct myMem)
 
-void* GetAlignedAddress(void * ptr,int align) {
-    while ((int)&*ptr%align != 0) {
-        &*ptr++;
-    }
-    return &*ptr;
-}
+void* Head = NULL;
 
-struct MyMemBlock * CheckAvailableBlock (unsigned int size,struct MyMemBlock *cur){
-    while (cur && !(cur->size>=size && cur->status == 0)){
-        cur = cur -> next;
-    }
-    return &*cur;
-}
-
-struct MyMemBlock * NewMemBlock (unsigned int size,struct MyMemBlock* cur,int align){
-    void* ptr = NULL;
-    ptr = sbrk(0);
-    ptr = GetAlignedAddress(ptr,align);
-    brk(ptr);
-    struct MyMemBlock* newmem = sbrk(0);
-    ptr =sbrk(size + sizeof(struct MyMemBlock));
+struct myMem *newMem (unsigned int size, unsigned int align){
+    struct myMem* temp;
+    //align
+    void* ptr = sbrk(size + EXTRA);
+    temp = ptr;
+    printf("%d\n",&*ptr);
     if (ptr == (void*)-1) return NULL;
-    
-    
-    newmem->size = size;
-    printf("hello");
-    newmem->next = NULL;
-    newmem->status = 1;
-    return newmem;
+    temp->next=NULL;
+    temp->size = size;
+    temp->status = 1;
+    return temp;
 }
 
-void* aligned_malloc (unsigned int size , unsigned int align ){
-    struct MyMemBlock* tempCur = Head;
-    tempCur = CheckAvailableBlock(size,tempCur);
-    if (!tempCur) {
-        tempCur = &*Head;
-        while (!tempCur){
-            tempCur = tempCur -> next;
-        }
-        tempCur = NewMemBlock(size,tempCur,align);
-        printf("%d",Head->status);
-        return (void*)(tempCur+1);
+struct myMem* findFreeSpace(struct myMem** prev,unsigned int size,unsigned int align){
+    struct myMem* cur;
+    cur = Head;
+    while (cur && !(cur->size>=size && cur->status==0)){
+        *prev = cur;
+        cur = cur ->next;
     }
-    return NULL;
+    return cur;
 }
+
+void* aligned_malloc(unsigned int size, unsigned int align){
+    struct myMem* temp;
+    if (!Head) {
+        temp = newMem(size,align);
+        if (!temp) return NULL;
+        Head = temp;
+        printf("%d\n",&*temp);
+        printf("%d\n",&*(temp+1));
+        printf("%d\n",sbrk(0));
+        return (temp+1);
+    }
+    else {
+        struct myMem* prev=Head;
+        temp = findFreeSpace(&prev,size,align);
+        if (!temp) {
+            prev->next = newMem(size,align);
+            temp=prev->next;
+            printf("%d\n",&*temp);
+            printf("%d\n",&*(temp+1));
+            printf("%d\n",sbrk(0));
+            return prev->next+1;
+        }
+        else {
+            if (temp->size == size || temp->size <= size+ EXTRA){
+                temp->status=1;
+                printf("%d\n",&*temp);
+                printf("%d\n",&*(temp+1));
+                printf("%d\n",sbrk(0));
+                return (temp+1);
+                
+            }
+        }
+
+    }
+    
+}
+
+//void * aligned_free (void *ptr );
+
 
 int main(){
-    void* ptr = aligned_malloc(10,10);
-
+    void* ptr = aligned_malloc(11,10);
+    
+    void* ptr2 = aligned_malloc(10,10);
+    
 }
+
