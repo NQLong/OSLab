@@ -18,7 +18,7 @@ struct myMem *newMem (unsigned int size, unsigned int align){
     
     temp = ptr;
     ptr = sbrk(size+align+sizeof(size_t)+EXTRA);
-    printf("%d after break\n",&*ptr);
+    printf("%d after break\n",sbrk(0));
     if (ptr == (void*)-1) return NULL;
     temp->next=NULL;
     temp->size = size+align;
@@ -36,7 +36,7 @@ void* aligned_malloc(unsigned int size, unsigned int align){
         printf("%d ptr1\n",&*ptr1);
         size_t addr=(size_t)ptr1+align+sizeof(size_t);
         void *ptr2 = (void *)(addr - (addr%align));
-        printf("%d ptr2\n",&*ptr1);
+        printf("%d ptr2\n",&*ptr2);
         *((size_t *)ptr2-1)=(size_t)ptr1;
         return ptr2;
     }
