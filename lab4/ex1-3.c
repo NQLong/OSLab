@@ -75,6 +75,7 @@ void* aligned_free (void *ptr ){
     void * res = (void *)(*((size_t *) ptr-1));
     struct myMem* temp = (struct myMem*)res - 1;
     printf("%zd real address\n",&*(void*)temp);
+    temp->status=0;
     return NULL;
 }
 
