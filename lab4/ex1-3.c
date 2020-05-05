@@ -90,6 +90,7 @@ int main(){
     printf("_____________________________________________________\n");
     struct myMem* prev = Head;
     ptr1 = aligned_free(ptr1);
+    printf("%d\n",prev->status);
     // // struct myMem* temp; 
     // // temp= Head;
     // // temp->status = 0;
