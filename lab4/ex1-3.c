@@ -83,6 +83,7 @@ int main(){
     printf("_____________________________________________________\n");
     printf("_____________________________________________________\n");
     struct myMem* prev = Head;
+    prev->status = 0;
     // // struct myMem* temp; 
     // // temp= Head;
     // // temp->status = 0;
