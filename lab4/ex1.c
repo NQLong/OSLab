@@ -20,8 +20,11 @@ void alignAdress(void **ptr,unsigned int align){
 struct myMem *newMem (unsigned int size, unsigned int align){
     struct myMem* temp;
     void* ptr = sbrk(0);
+    printf("%d after align\n");
     alignAdress(&ptr,align);
+    printf("%d after align\n");
     brk(ptr);
+    ptr = sbrk(0);
     temp = ptr;
     ptr = sbrk(size+EXTRA);
     if (ptr == (void*)-1) return NULL;
