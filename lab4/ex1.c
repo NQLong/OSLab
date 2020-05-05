@@ -22,7 +22,7 @@ struct myMem *newMem (unsigned int size, unsigned int align){
     struct myMem* temp;
     void* ptr = sbrk(0);
     printf("%d before align\n",&*ptr);
-    alignAdress(&ptr,align);
+    alignAdress(ptr,align);
     printf("%d after align\n",&*ptr);
     brk(ptr);
     ptr = sbrk(0);
