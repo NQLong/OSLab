@@ -42,9 +42,11 @@ By using basic formule I am finding next address after p1 which is
 multiple of alignment.I am storing new address in p2.
 */
 size_t addr=(size_t)p1+alignment+sizeof(size_t);
-
+printf("%zd\n",addr);
+printf("%zd\n",(size_t)p1);
+printf("%zd\n",sizeof(size_t));
 p2=(void *)(addr - (addr%alignment));
-
+printf("%zd\n",addr - (addr%alignment));
 /* Final step, I am storing the address returned by malloc 'p1' just "size_t"
 bytes above p2, which will be useful while calling aligned_free.
 */
