@@ -82,7 +82,7 @@ int main(){
     printf("%d ptr2 address\n",&*ptr2);
     printf("_____________________________________________________\n");
     printf("_____________________________________________________\n");
-    struct myMem* temp = Head;
+    struct myMem* temp; temp= Head;
     temp->status = 0;
     printf("hello");
     void *ptr3 = aligned_malloc(30,5);
