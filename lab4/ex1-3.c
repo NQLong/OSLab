@@ -12,7 +12,7 @@ struct myMem {
 void* Head = NULL;
 
 struct myMem *newMem (unsigned int size, unsigned int align){
-     pritnf("generating\n");
+     printf("generating\n");
     struct myMem* temp;
     void* ptr = sbrk(0);
     printf("%d before break\n",&*ptr);
@@ -27,7 +27,7 @@ struct myMem *newMem (unsigned int size, unsigned int align){
 }
 
 struct myMem* findFreeSpace(struct myMem** prev,unsigned int size,unsigned int align){
-    pritnf("finding\n");
+    printf("finding\n");
     struct myMem* cur;
     cur = Head;
     while (cur && !(cur->size>=size+align && cur->status==0)){
@@ -38,7 +38,7 @@ struct myMem* findFreeSpace(struct myMem** prev,unsigned int size,unsigned int a
 }
 
 struct myMem* split(struct myMem** current,unsigned int size,unsigned int align){
-    pritnf("spliting\n");
+    printf("spliting\n");
     struct myMem* cur = *current;
     struct myMem* temp;
     void * ptr = (void*)(cur+1);
@@ -55,7 +55,7 @@ struct myMem* split(struct myMem** current,unsigned int size,unsigned int align)
 void* aligned_malloc(unsigned int size, unsigned int align){
     struct myMem* temp;
     if (!Head){
-        pritnf("no head\n");
+        printf("no head\n");
         temp = newMem(size,align);
         if (!temp) return NULL;
         Head= temp;
@@ -64,20 +64,20 @@ void* aligned_malloc(unsigned int size, unsigned int align){
         struct myMem* prev = Head;
         temp = findFreeSpace(&prev,size,align);
         if (!temp) {
-             pritnf("no available\n");
+             printf("no available\n");
             prev->next = newMem(size,align);
             if (!prev->next) return NULL;
             temp = prev->next;
         }
         else {
-            pritnf("available\n");
+            printf("available\n");
             if (temp->size > size+ align +EXTRA + sizeof(size_t)){
-                 pritnf("need split\n");
+                 printf("need split\n");
                 temp = split(&temp,size,align);
                 temp->status=1;
             }
             else {
-                 pritnf("fitting\n");
+                 printf("fitting\n");
                 temp->status = 1;
             }
         }
