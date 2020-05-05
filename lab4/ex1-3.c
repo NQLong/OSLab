@@ -91,10 +91,27 @@ void* aligned_malloc(unsigned int size, unsigned int align){
     *((size_t *)ptr2-1)=(size_t)ptr1;
     return ptr2;
 }
+
+struct myMem* merge(struct myMem** current){
+    struct myMem* cur = current;
+    if (cur->next)
+        if (cur->next->status == 0){
+            cur->size += EXTRA + sizeof(size_t)+cur->next->size;
+            cur->next = cur->next->next;
+        }
+    return cur;
+    
+}
 void* aligned_free (void *ptr ){
     void * res = (void *)(*((size_t *) ptr-1));
-    struct myMem* temp = (struct myMem*)res - 1;
-    temp->status=0;
+    struct myMem* cur = (struct myMem*)res - 1;
+    cur->status=0;
+    cur = merge(&cur);
+    struct myMem* temp = Head;
+    if (cur!=temp)
+        while (temp->next!= cur)
+            temp = temp->next;
+        if (temp->status == 0) merge(temp);
     return NULL;
 }
 
@@ -121,9 +138,25 @@ int main(){
     struct myMem* temp = Head;
     while (temp){
         printf("%d\n",temp->size);
-        printf("%d\n",temp->size);
+        printf("%d\n",temp->status);
         printf("_____________________________________________________\n");
         printf("_____________________________________________________\n");
         temp = temp->next;
     }
+    
+    printf("_____________________________________________________\n");
+    printf("_____________________________________________________\n");
+    printf("_____________________________________________________\n");
+    printf("_____________________________________________________\n");
+    ptr2 =free(ptr2);
+    ptr3 =free(ptr3);
+    struct myMem* temp = Head;
+    while (temp){
+        printf("%d\n",temp->size);
+        printf("%d\n",temp->status);
+        printf("_____________________________________________________\n");
+        printf("_____________________________________________________\n");
+        temp = temp->next;
+    }
+
 }
