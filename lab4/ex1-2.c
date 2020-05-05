@@ -44,6 +44,8 @@ multiple of alignment.I am storing new address in p2.
 */
 size_t addr=(size_t)p1+alignment+sizeof(size_t);
 p2=(void *)(addr - (addr%alignment));
+printf("%d bytes\n",bytes);
+printf("%zd bytes size_t\n",bytes);
 printf("%d pointer address p1\n",&*p1);
 printf("%d pointer address p2\n",&*p2);
 printf("%zd addr\n",addr);
