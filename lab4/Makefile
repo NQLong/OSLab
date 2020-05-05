@@ -1,5 +1,4 @@
 all : main.o ex1.o
-	git pull
 	gcc main.o ex1 -o ex1
 
 main.o : main.c ex1.h
@@ -10,3 +9,6 @@ ex1.o : ex1.c ex1.h
 
 clean:
 	rm -f *.o mygrep
+
+get:
+	git pull
