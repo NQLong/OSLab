@@ -93,7 +93,7 @@ void* aligned_malloc(unsigned int size, unsigned int align){
 }
 
 struct myMem* merge(struct myMem** current){
-    struct myMem* cur = current;
+    struct myMem* cur = *current;
     if (cur->next)
         if (cur->next->status == 0){
             cur->size += EXTRA + sizeof(size_t)+cur->next->size;
