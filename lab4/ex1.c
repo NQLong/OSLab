@@ -50,6 +50,9 @@ void* aligned_malloc(unsigned int size, unsigned int align){
         if (!temp) {
             prev->next = newMem(size,align);
             temp=prev->next;
+            printf("%d\n",&*temp);
+            printf("%d\n",&*(temp+1));
+            printf("%d\n",sbrk(0));
             return prev->next+1;
         }
         else {
@@ -68,10 +71,10 @@ void* aligned_malloc(unsigned int size, unsigned int align){
 
 
 int main(){
-    printf("%d\n",sbrk(0));
+    printf("%d\n heap begin",sbrk(0));
     void* ptr = aligned_malloc(10,10);
-    printf("%d pointer address",&*ptr);
+    printf("%d pointer address\n",&*ptr);
     void* ptr2 = aligned_malloc(10,10);
-    printf("%d pointer address",&*ptr);
+    printf("%d pointer address\n",&*ptr);
 }
 
