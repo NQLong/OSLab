@@ -76,6 +76,7 @@ void* aligned_free (void *ptr ){
     struct myMem* temp = (struct myMem*)res - 1;
     printf("%zd real address\n",&*(void*)temp);
     temp->status=0;
+    printf("%d\n",temp->status);
     return NULL;
 }
 
@@ -90,7 +91,7 @@ int main(){
     printf("_____________________________________________________\n");
     struct myMem* prev = Head;
     ptr1 = aligned_free(ptr1);
-    printf("%d\n",prev->status);
+
     // // struct myMem* temp; 
     // // temp= Head;
     // // temp->status = 0;
