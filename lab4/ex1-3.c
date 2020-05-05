@@ -111,7 +111,7 @@ void* aligned_free (void *ptr ){
     if (cur!=temp){
         while (temp->next!= cur)
             temp = temp->next;
-        if (temp->status == 0) merge(temp);
+        if (temp->status == 0) merge(&temp);
     }
     return NULL;
 }
