@@ -8,9 +8,9 @@ int main(){
         ptr[i]=i;
     }
     for (i =0;i<4;i++){
-        pritnf("%d ",ptr[i]);
+        printf("%d ",ptr[i]);
     }
     printf("\n");
-    pritnf("%d\n",&*ptr);
+    printf("%d\n",&*ptr);
     return 0;
 }
