@@ -108,10 +108,11 @@ void* aligned_free (void *ptr ){
     cur->status=0;
     cur = merge(&cur);
     struct myMem* temp = Head;
-    if (cur!=temp)
+    if (cur!=temp){
         while (temp->next!= cur)
             temp = temp->next;
         if (temp->status == 0) merge(temp);
+    }
     return NULL;
 }
 
