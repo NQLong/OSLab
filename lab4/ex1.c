@@ -24,7 +24,7 @@ struct MyMemBlock * NewMemBlock (unsigned int size,struct MyMemBlock* cur,int al
     brk(ptr);
     struct MyMemBlock* newmem = sbrk(0);
     ptr =sbrk(size + sizeof(struct MyMemBlock));
-    if (ptr != (void*)-1) return NULL;
+    if (ptr == (void*)-1) return NULL;
     
     
     newmem->size = size;
