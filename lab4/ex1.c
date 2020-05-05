@@ -21,6 +21,7 @@ struct MyMemBlock * NewMemBlock (unsigned int size,struct MyMemBlock* cur,int al
     void* ptr = NULL;
     ptr = sbrk(0);
     ptr = GetAlignedAddress(ptr,align);
+    brk(ptr);
     ptr =sbrk(size + sizeof(struct MyMemBlock));
     if (ptr != (void*)-1) return NULL;
 
@@ -35,7 +36,7 @@ void* aligned_malloc (unsigned int size , unsigned int align ){
     struct MyMemBlock* tempCur = Head;
     tempCur = CheckAvailableBlock(size,tempCur);
     if (!tempCur) {
-        tempCur = Head;
+        tempCur = &*Head;
         while (!tempCur){
             tempCur = tempCur -> next;
         }
