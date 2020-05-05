@@ -13,12 +13,9 @@ void* Head = NULL;
 
 struct myMem *newMem (unsigned int size, unsigned int align){
     struct myMem* temp;
-    //align
     void* ptr = sbrk(0);
     temp = ptr;
-    printf("before break %d\n",&*ptr);
     ptr = sbrk(10+24);
-    printf("after break  %d\n",&*ptr);
     if (ptr == (void*)-1) return NULL;
     temp->next=NULL;
     temp->size = size;
@@ -42,6 +39,9 @@ void* aligned_malloc(unsigned int size, unsigned int align){
         temp = newMem(size,align);
         if (!temp) return NULL;
         Head = temp;
+        printd("%d\n",&*temp);
+        printd("%d\n",&*(temp+1));
+        printd("%d\n",sbrk(0));
         return (temp+1);
     }
     else {
@@ -70,8 +70,8 @@ void* aligned_malloc(unsigned int size, unsigned int align){
 int main(){
     printf("%d\n",sbrk(0));
     void* ptr = aligned_malloc(10,10);
-    
+    printf("%d pointer address",&*ptr);
     void* ptr2 = aligned_malloc(10,10);
-    
+    printf("%d pointer address",&*ptr);
 }
 
