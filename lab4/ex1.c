@@ -2,39 +2,45 @@
 
 struct MyMemBlock *Head = NULL;
 
+
 void* GetAlignedAddress(void * ptr,int align) {
     while ((int)&*ptr%align != 0) {
         &*ptr++;
     }
-    return ptr;
+    return &*ptr;
 }
 
-struct MyMemBlock * CheckAvailableBlock (unsigned int size,struct MyMemBlock* cur,struct MyMemBlock* prev){
+struct MyMemBlock * CheckAvailableBlock (unsigned int size,struct MyMemBlock *cur){
     while (cur && !(cur->size>=size && cur->status == 0)){
-        prev = cur;
         cur = cur -> next;
     }
-    return NULL;
+    return &*cur;
+}
+
+struct MyMemBlock * NewMemBlock (unsigned int size,struct MyMemBlock* cur,int align){
+    void* ptr = NULL;
+    ptr = GetAlignedAddress(ptr,align);
+    ptr =sbrk(size + sizeof(struct MyMemBlock));
+    if (ptr != (void*)-1) return NULL;
+
+    cur = (struct MyMemBlock*)ptr;
+    cur->size = size;
+    cur->next = NULL;
+    cur->status = 1;
+    return cur;
 }
 
 void* aligned_malloc (unsigned int size , unsigned int align ){
-    Head = sbrk(sizeof(struct MyMemBlock));
-    Head->next = sbrk(sizeof(struct MyMemBlock));
-    Head->next->status=1;
-    Head->status = 0;
-    printf("%d\n",Head->status);
-    printf("%d\n",Head->next->status);
     struct MyMemBlock* tempCur = Head;
-    struct MyMemBlock* tempPrev = tempCur;
-
-    tempCur = CheckAvailableBlock(size,&tempCur,&tempPrev);
-    printf("%d\n",tempPrev->status);
-    if (!Head) {
-        //Head = NewMemBlock(size,Head);
-        if (!Head) {
-            perror("Something went wrong");
+    tempCur = CheckAvailableBlock(size,tempCur);
+    if (!tempCur) {
+        tempCur = Head;
+        while (!tempCur){
+            tempCur = tempCur -> next;
         }
-        else return (void*)(-1);
+        tempCur = NewMemBlock(size,tempCur,align);
+        printf("%d",Head->status);
+        return (void*)(tempCur+1);
     }
     return NULL;
 }
