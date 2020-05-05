@@ -67,11 +67,21 @@ void* aligned_malloc(unsigned int size, unsigned int align){
             return prev->next+1;
         }
         else {
-            if (temp->size == size || temp->size <= size+ EXTRA){
-                temp->status=1;
-                return (temp+1);
-                
+            switch (1) {
+                case 1:
+                    if (temp->size > size + EXTRA) {
+                        void * tempptr = temp+1;
+                        tempptr += size;
+                        printf("hello");
+                    }
+                    break;
+                case 2:
+                    temp->status=1;
+                    return (temp+1);
+                default:    
+                    break;
             }
+            
         }
 
     }
@@ -82,16 +92,10 @@ void* aligned_malloc(unsigned int size, unsigned int align){
 
 
 int main(){
-    printf("%d heap begin\n",sbrk(0));
-    char* ptr =(char*) aligned_malloc(5,1);
-    printf("%d pointer address\n",&*ptr);
-    scanf("%s",ptr);
-    printf("%d pointer address\n",&*ptr);
-    char* ptr2 =(char*) aligned_malloc(5,1);
-    printf("%d pointer address\n",&*ptr2);
-    scanf("%s",ptr);
-    printf("%d pointer address\n",&*ptr2);
-    printf("%s\n",ptr);
-    printf("%s\n",ptr2);
+    void *ptr = aligned_malloc(30,5);
+    void *ptr2 = aligned_malloc(30,5);
+    ((struct myMem*)Head)->status =1;
+    void* ptr3 = aligned_malloc(10,6);
+
 }
 
