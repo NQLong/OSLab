@@ -71,12 +71,16 @@ void* aligned_malloc(unsigned int size, unsigned int align){
                 case 1:
                     if (temp->size > size + EXTRA) {
                         printf("hellooooooooooooooooooooooooooooooooooooooooo\n");
+                        void * maxAddress = temp+1;
+                        maxAddress+=temp->size;
+                        printf("%d max\n",&*maxAddress);
                         void * tempptr = temp+1;
-                        printf("%d\n",&*tempptr);
+                        printf("%d pointer address\n",&*tempptr);
                         tempptr += size;
-                        tempptr = alignAdress(tempptr,align);
+                        tempptr = alignAdress(tempptr,align) + EXTRA;
+                        printf("%d if we split\n",&*tempptr);
+                        if ((int)&*tempptr < (int)&*maxAddress) printf("first step");
                         
-                        printf("%d\n",&*tempptr);
                     }
                     break;
                 case 2:
