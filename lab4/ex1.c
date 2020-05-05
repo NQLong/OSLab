@@ -14,13 +14,14 @@ void* Head = NULL;
 void alignAdress(void **ptr,unsigned int align){
     while (((int)(&**ptr)+EXTRA) %align != 0 )
         &**ptr++;
+    printf("%d after align\n",&**ptr);
     return;
 }
 
 struct myMem *newMem (unsigned int size, unsigned int align){
     struct myMem* temp;
     void* ptr = sbrk(0);
-    printf("%d after align\n",&*ptr);
+    printf("%d before align\n",&*ptr);
     alignAdress(&ptr,align);
     printf("%d after align\n",&*ptr);
     brk(ptr);
