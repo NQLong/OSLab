@@ -71,7 +71,7 @@ void* aligned_malloc(unsigned int size, unsigned int align){
 
 
 int main(){
-    printf("%d\n heap begin",sbrk(0));
+    printf("%d heap begin\n",sbrk(0));
     void* ptr = aligned_malloc(10,10);
     printf("%d pointer address\n",&*ptr);
     void* ptr2 = aligned_malloc(10,10);
