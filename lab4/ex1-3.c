@@ -12,10 +12,10 @@ struct myMem {
 void* Head = NULL;
 
 struct myMem *newMem (unsigned int size, unsigned int align){
+     pritnf("generating\n");
     struct myMem* temp;
     void* ptr = sbrk(0);
     printf("%d before break\n",&*ptr);
-    
     temp = ptr;
     ptr = sbrk(size+align+sizeof(size_t)+EXTRA);
     printf("%d after break\n",sbrk(0));
@@ -27,20 +27,35 @@ struct myMem *newMem (unsigned int size, unsigned int align){
 }
 
 struct myMem* findFreeSpace(struct myMem** prev,unsigned int size,unsigned int align){
+    pritnf("finding\n");
     struct myMem* cur;
     cur = Head;
-    if (!cur) printf("we dead");
     while (cur && !(cur->size>=size+align && cur->status==0)){
         *prev = cur;
-        printf("%d\n", cur->status);
         cur = cur ->next;
     }
+    return cur;
+}
+
+struct myMem* split(struct myMem** current,unsigned int size,unsigned int align){
+    pritnf("spliting\n");
+    struct myMem* cur = *current;
+    struct myMem* temp;
+    void * ptr = (void*)(cur+1);
+    ptr += size + sizeof(size_t) + align;
+    temp = ptr;
+    temp->size= cur->size - (size +align +EXTRA+sizeof(size_t));
+    cur ->size = size + align;
+    temp->status = 0;
+    temp->next = cur->next;
+    cur->next = temp;
     return cur;
 }
 
 void* aligned_malloc(unsigned int size, unsigned int align){
     struct myMem* temp;
     if (!Head){
+        pritnf("no head\n");
         temp = newMem(size,align);
         if (!temp) return NULL;
         Head= temp;
@@ -48,19 +63,21 @@ void* aligned_malloc(unsigned int size, unsigned int align){
     else {
         struct myMem* prev = Head;
         temp = findFreeSpace(&prev,size,align);
-        printf("hello");
         if (!temp) {
+             pritnf("no available\n");
             prev->next = newMem(size,align);
             if (!prev->next) return NULL;
             temp = prev->next;
         }
         else {
-            printf("hello");
+            pritnf("available\n");
             if (temp->size > size+ align +EXTRA + sizeof(size_t)){
-                return NULL;
-                 printf("hello");
+                 pritnf("need split\n");
+                temp = split(&temp,size,align);
+                temp->status=1;
             }
             else {
+                 pritnf("fitting\n");
                 temp->status = 1;
             }
         }
@@ -77,9 +94,7 @@ void* aligned_malloc(unsigned int size, unsigned int align){
 void* aligned_free (void *ptr ){
     void * res = (void *)(*((size_t *) ptr-1));
     struct myMem* temp = (struct myMem*)res - 1;
-    printf("%zd real address\n",&*(void*)temp);
     temp->status=0;
-    printf("%d\n",temp->status);
     return NULL;
 }
 
@@ -102,13 +117,5 @@ int main(){
     printf("%d ptr2 address\n",&*ptr4);
     printf("_____________________________________________________\n");
     printf("_____________________________________________________\n");
-    // // // struct myMem* temp; 
-    // // // temp= Head;
-    // // // temp->status = 0;
-    // // // printf("hello");
-    // void *ptr3 = aligned_malloc(30,5);
-    // printf("%d ptr3 address\n",&*ptr3);
-    // // void *ptr2 = aligned_malloc(30,5);
-    // // ((struct myMem*)Head)->status =0;
-    // // void* ptr3 = aligned_malloc(10,6);
+
 }
