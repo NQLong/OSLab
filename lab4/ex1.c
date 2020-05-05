@@ -83,10 +83,10 @@ void* aligned_malloc(unsigned int size, unsigned int align){
 
 int main(){
     printf("%d heap begin\n",sbrk(0));
-    char* ptr =(char*) aligned_malloc(5,16);
+    char* ptr =(char*) aligned_malloc(5,1);
     ptr = "hello";
     printf("%d pointer address\n",&*ptr);
-    char* ptr2 =(char*) aligned_malloc(5,16);
+    char* ptr2 =(char*) aligned_malloc(5,1);
     ptr2 = "phake";
     printf("%d pointer address\n",&*ptr2);
     printf("%s\n",ptr);
