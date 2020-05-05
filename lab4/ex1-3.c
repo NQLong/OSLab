@@ -99,7 +99,7 @@ void* aligned_free (void *ptr ){
 }
 
 int main(){
-    void *ptr1 = aligned_malloc(30,5);
+    void *ptr1 = aligned_malloc(70,5);
     printf("%d ptr1 address\n",&*ptr1);
     printf("_____________________________________________________\n");
     printf("_____________________________________________________\n");
@@ -113,7 +113,7 @@ int main(){
     printf("%d ptr2 address\n",&*ptr3);
     printf("_____________________________________________________\n");
     printf("_____________________________________________________\n");
-    void *ptr4 = aligned_malloc(30,5);
+    void *ptr4 = aligned_malloc(15,5);
     printf("%d ptr2 address\n",&*ptr4);
     printf("_____________________________________________________\n");
     printf("_____________________________________________________\n");
