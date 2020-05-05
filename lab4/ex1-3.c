@@ -120,8 +120,8 @@ int main(){
 
     struct myMem* temp = Head;
     while (!temp){
-        pritnf("%d",temp->size);
-         pritnf("%d",temp->size);
+        printf("%d",temp->size);
+         printf("%d",temp->size);
          printf("_____________________________________________________\n");
     printf("_____________________________________________________\n");
     temp = temp->next;
