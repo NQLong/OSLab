@@ -79,10 +79,12 @@ void* aligned_malloc(unsigned int size, unsigned int align){
                         tempptr += size;
                         tempptr = alignAdress(tempptr,align) + EXTRA;
                         printf("%d if we split\n",&*tempptr);
-                        if ((int)&*tempptr < (int)&*maxAddress) printf("first step");
-                        
+                        if ((int)&*tempptr < (int)&*maxAddress){
+                            splitMem(&temp,size,align);
+                        }
+
                     }
-                    break;
+                    
                 case 2:
                     temp->status=1;
                     return (temp+1);
