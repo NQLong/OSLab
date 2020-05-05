@@ -15,7 +15,7 @@ struct myMem *newMem (unsigned int size, unsigned int align){
     struct myMem* temp;
     void* ptr = sbrk(0);
     temp = ptr;
-    ptr = sbrk(10+24);
+    ptr = sbrk(size+EXTRA);
     if (ptr == (void*)-1) return NULL;
     temp->next=NULL;
     temp->size = size;
