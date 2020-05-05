@@ -94,7 +94,10 @@ int main(){
     printf("_____________________________________________________\n");
     struct myMem* prev = Head;
     ptr1 = aligned_free(ptr1);
-    
+    void *ptr3 = aligned_malloc(40,5);
+    printf("%d ptr2 address\n",&*ptr3);
+    printf("_____________________________________________________\n");
+    printf("_____________________________________________________\n");
 
     // // // struct myMem* temp; 
     // // // temp= Head;
