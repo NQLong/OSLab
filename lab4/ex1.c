@@ -11,10 +11,10 @@ struct myMem {
 
 void* Head = NULL;
 
-void alignAdress(void **ptr,unsigned int align){
-    while (((int)(&**ptr)+EXTRA) %align != 0 )
-        &**ptr++;
-    printf("%d after align\n",&**ptr);
+void alignAdress(void *ptr,unsigned int align){
+    while (((int)(&*ptr)+EXTRA) %align != 0 )
+        &*ptr++;
+    printf("%d after align\n",&*ptr);
     return;
 }
 
