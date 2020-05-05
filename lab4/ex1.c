@@ -94,7 +94,7 @@ void* aligned_malloc(unsigned int size, unsigned int align){
 int main(){
     void *ptr = aligned_malloc(30,5);
     void *ptr2 = aligned_malloc(30,5);
-    ((struct myMem*)Head)->status =1;
+    ((struct myMem*)Head)->status =0;
     void* ptr3 = aligned_malloc(10,6);
 
 }
