@@ -22,15 +22,16 @@ struct MyMemBlock * NewMemBlock (unsigned int size,struct MyMemBlock* cur,int al
     ptr = sbrk(0);
     ptr = GetAlignedAddress(ptr,align);
     brk(ptr);
+    struct MyMemBlock* newmem = sbrk(0);
     ptr =sbrk(size + sizeof(struct MyMemBlock));
     if (ptr != (void*)-1) return NULL;
-
-    cur = (struct MyMemBlock*)ptr;
-    cur->size = size;
+    
+    newmem = (struct MyMemBlock*)ptr;
+    newmem->size = size;
     printf("hello");
-    cur->next = NULL;
-    cur->status = 1;
-    return cur;
+    newmem->next = NULL;
+    newmem->status = 1;
+    return newmem;
 }
 
 void* aligned_malloc (unsigned int size , unsigned int align ){
