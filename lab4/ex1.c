@@ -39,9 +39,9 @@ void* aligned_malloc(unsigned int size, unsigned int align){
         temp = newMem(size,align);
         if (!temp) return NULL;
         Head = temp;
-        printd("%d\n",&*temp);
-        printd("%d\n",&*(temp+1));
-        printd("%d\n",sbrk(0));
+        printf("%d\n",&*temp);
+        printf("%d\n",&*(temp+1));
+        printf("%d\n",sbrk(0));
         return (temp+1);
     }
     else {
