@@ -71,7 +71,12 @@ void* aligned_malloc(unsigned int size, unsigned int align){
     *((size_t *)ptr2-1)=(size_t)ptr1;
     return ptr2;
 }
-
+void* aligned_free (void *ptr ){
+    void * res = (void *)(*((size_t *) ptr-1));
+    struct myMem* temp = (struct myMem*)res - 1;
+    printf("%zd real address\n",&*(void*)temp);
+    return NULL;
+}
 
 int main(){
     void *ptr1 = aligned_malloc(30,5);
@@ -83,7 +88,7 @@ int main(){
     printf("_____________________________________________________\n");
     printf("_____________________________________________________\n");
     struct myMem* prev = Head;
-    prev->status = 0;
+    ptr1 = aligned_free(ptr1);
     // // struct myMem* temp; 
     // // temp= Head;
     // // temp->status = 0;
