@@ -19,6 +19,7 @@ struct MyMemBlock * CheckAvailableBlock (unsigned int size,struct MyMemBlock *cu
 
 struct MyMemBlock * NewMemBlock (unsigned int size,struct MyMemBlock* cur,int align){
     void* ptr = NULL;
+    ptr = sbrk(0);
     ptr = GetAlignedAddress(ptr,align);
     ptr =sbrk(size + sizeof(struct MyMemBlock));
     if (ptr != (void*)-1) return NULL;
@@ -47,4 +48,5 @@ void* aligned_malloc (unsigned int size , unsigned int align ){
 
 int main(){
     void* ptr = aligned_malloc(10,10);
+
 }
