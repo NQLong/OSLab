@@ -54,16 +54,16 @@ void* aligned_malloc(unsigned int size, unsigned int align){
             if (!prev->next) return NULL;
             temp = prev->next;
         }
-    //     else {
-    //         printf("hello");
-    //         if (temp->size > size+ align +EXTRA + sizeof(size_t)){
-    //             return NULL;
-    //              printf("hello");
-    //         }
-    //         else {
-    //             temp->status = 1;
-    //         }
-    //     }
+        else {
+            printf("hello");
+            if (temp->size > size+ align +EXTRA + sizeof(size_t)){
+                return NULL;
+                 printf("hello");
+            }
+            else {
+                temp->status = 1;
+            }
+        }
     }
     printf("%d temp address\n",&*(void*)temp);
     void *ptr1 = temp+1;
@@ -90,10 +90,11 @@ int main(){
     printf("_____________________________________________________\n");
     void *ptr2 = aligned_malloc(30,5);
     printf("%d ptr2 address\n",&*ptr2);
-    // printf("_____________________________________________________\n");
-    // printf("_____________________________________________________\n");
-    // struct myMem* prev = Head;
-    // ptr1 = aligned_free(ptr1);
+    printf("_____________________________________________________\n");
+    printf("_____________________________________________________\n");
+    struct myMem* prev = Head;
+    ptr1 = aligned_free(ptr1);
+    
 
     // // // struct myMem* temp; 
     // // // temp= Head;
