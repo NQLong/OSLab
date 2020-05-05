@@ -34,6 +34,7 @@ pointer returning to user. Thats why I need extra space to store that address.
 Then I am checking for error returned by malloc, if it returns NULL then
 aligned_malloc will fail and return NULL.
 */
+
 if((p1 =(void *) malloc(bytes + alignment + sizeof(size_t)))==NULL)
 return NULL;
 
@@ -42,11 +43,11 @@ By using basic formule I am finding next address after p1 which is
 multiple of alignment.I am storing new address in p2.
 */
 size_t addr=(size_t)p1+alignment+sizeof(size_t);
-printf("%zd\n",addr);
-printf("%zd\n",(size_t)p1);
-printf("%zd\n",sizeof(size_t));
+printf("%zd addr\n",addr);
+printf("%zd p1\n",(size_t)p1);
+printf("%zd size_t\n",sizeof(size_t));
 p2=(void *)(addr - (addr%alignment));
-printf("%zd\n",addr - (addr%alignment));
+printf("%zd p2\n",addr - (addr%alignment));
 /* Final step, I am storing the address returned by malloc 'p1' just "size_t"
 bytes above p2, which will be useful while calling aligned_free.
 */
@@ -71,11 +72,12 @@ free((void *)(*((size_t *) p-1)));
 }
 
 int main(){
+    printf("%d Heap begin\n",sbrk(0));
     void* ptr = aligned_malloc(20,10);
-    printf("%d\n",&*ptr);
+    printf("%d pointer address\n",&*ptr);
     void* ptr2 = aligned_malloc(20,10);
-    printf("%d\n",&*ptr2);
+    printf("%d pointer address\n",&*ptr2);
     aligned_free(ptr);
     void* ptr3 = aligned_malloc(50,10);
-    printf("%d\n",&*ptr3);
+    printf("%d pointer address\n",&*ptr3);
 }
