@@ -27,6 +27,7 @@ struct MyMemBlock * NewMemBlock (unsigned int size,struct MyMemBlock* cur,int al
 
     cur = (struct MyMemBlock*)ptr;
     cur->size = size;
+    printf("hello");
     cur->next = NULL;
     cur->status = 1;
     return cur;
