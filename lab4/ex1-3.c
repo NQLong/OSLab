@@ -149,9 +149,9 @@ int main(){
     printf("_____________________________________________________\n");
     printf("_____________________________________________________\n");
     printf("_____________________________________________________\n");
-    ptr2 =free(ptr2);
-    ptr3 =free(ptr3);
-    struct myMem* temp = Head;
+    ptr2 = aligned_free(ptr2);
+    ptr3 = aligned_free(ptr3);
+    temp = Head;
     while (temp){
         printf("%d\n",temp->size);
         printf("%d\n",temp->status);
