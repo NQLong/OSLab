@@ -45,14 +45,17 @@ void* aligned_malloc(unsigned int size, unsigned int align){
     else {
         struct myMem* prev = Head;
         temp = findFreeSpace(&prev,size,align);
+        printf("hello");
         if (!temp) {
             prev->next = newMem(size,align);
             if (!prev->next) return NULL;
             temp = prev->next;
         }
         else {
+            printf("hello");
             if (temp->size > size+ align +EXTRA + sizeof(size_t)){
                 return NULL;
+                 printf("hello");
             }
             else {
                 temp->status = 1;
