@@ -12,7 +12,7 @@ int main(){
     }
     printf("\n");
     printf("ptr 1st byte address %zd\n",&*ptr);
-    printf("second call,create a new array of char (100 element, 1024 align");
+    printf("second call,create a new array of char (100 element, 1024 align)\n");
     
     char* ptr2= (char*)aligned_malloc(sizeof(char)*100,1024);
     printf("ptr2 1st byte address %zd\n",&*ptr2);
