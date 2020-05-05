@@ -29,6 +29,7 @@ struct myMem *newMem (unsigned int size, unsigned int align){
 struct myMem* findFreeSpace(struct myMem** prev,unsigned int size,unsigned int align){
     struct myMem* cur;
     cur = Head;
+    if (!cur) printf("we dead");
     while (cur && !(cur->size>=size+align && cur->status==0)){
         *prev = cur;
         printf("%d\n", cur->status);

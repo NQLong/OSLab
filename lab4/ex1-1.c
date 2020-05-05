@@ -14,6 +14,7 @@ struct block_meta {
 
 struct block_meta *find_free_block(struct block_meta **prev, size_t size) {
   struct block_meta *cur = Head;
+  
   while (cur && !(cur->free && cur->size >= size)) {
     *prev = cur;
     cur = cur->next;
