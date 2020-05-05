@@ -74,6 +74,6 @@ int main(){
     void* ptr2 = aligned_malloc(20,10);
     printf("%d\n",&*ptr2);
     aligned_free(ptr);
-    void* ptr3 = aligned_malloc(30,10);
+    void* ptr3 = aligned_malloc(50,10);
     printf("%d\n",&*ptr3);
 }
