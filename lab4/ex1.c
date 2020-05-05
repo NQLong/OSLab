@@ -70,9 +70,11 @@ void* aligned_malloc(unsigned int size, unsigned int align){
             switch (1) {
                 case 1:
                     if (temp->size > size + EXTRA) {
-                        void * tempptr = temp+1;
-                        tempptr += size;
                         printf("hello");
+                        void * tempptr = temp+1;
+                        printf("%d\n",&*tempptr);
+                        tempptr += size;
+                        printf("%d\n",&*tempptr);
                     }
                     break;
                 case 2:
