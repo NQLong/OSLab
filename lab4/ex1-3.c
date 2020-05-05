@@ -64,7 +64,7 @@ void* aligned_malloc(unsigned int size, unsigned int align){
         struct myMem* prev = Head;
         temp = findFreeSpace(&prev,size,align);
         if (!temp) {
-             printf("no available\n");
+            printf("no available\n");
             prev->next = newMem(size,align);
             if (!prev->next) return NULL;
             temp = prev->next;
@@ -109,7 +109,7 @@ int main(){
     printf("_____________________________________________________\n");
     struct myMem* prev = Head;
     ptr1 = aligned_free(ptr1);
-    void *ptr3 = aligned_malloc(40,5);
+    void *ptr3 = aligned_malloc(60,5);
     printf("%d ptr2 address\n",&*ptr3);
     printf("_____________________________________________________\n");
     printf("_____________________________________________________\n");
