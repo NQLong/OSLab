@@ -1,5 +1,5 @@
 all : main.o ex1.o
-	gcc main.o ex1 -o ex1
+	gcc main.o ex1.o -o ex1
 
 main.o : main.c ex1.h
 	gcc -c main.c
