@@ -11,9 +11,17 @@ struct myMem {
 
 void* Head = NULL;
 
+void alignAdress(void **ptr,unsigned int align){
+    while (((int)(&**ptr)+EXTRA) %align != 0 )
+        &**ptr++;
+    return;
+}
+
 struct myMem *newMem (unsigned int size, unsigned int align){
     struct myMem* temp;
     void* ptr = sbrk(0);
+    alignAdress(&ptr,align);
+    brk(ptr);
     temp = ptr;
     ptr = sbrk(size+EXTRA);
     if (ptr == (void*)-1) return NULL;
