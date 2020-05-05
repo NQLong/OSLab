@@ -1,35 +1,15 @@
-#include <stdio.h>
-#include <unistd.h>
-
-struct myMem {
-    unsigned int size;
-    struct myMem* next;
-    int status;
-};
-
-#define EXTRA sizeof(struct myMem)
+#include "ex1.h"
 
 void* Head = NULL;
-
-void* alignAdress(void *ptr,unsigned int align){
-    while (((int)(&*ptr)+EXTRA) %align != 0 )
-        &*ptr++;
-    return ptr;
-}
 
 struct myMem *newMem (unsigned int size, unsigned int align){
     struct myMem* temp;
     void* ptr = sbrk(0);
-    printf("%d before align\n",&*ptr);
-    ptr = alignAdress(ptr,align);
-    printf("%d after align\n",&*ptr);
-    brk(ptr);
-    ptr = sbrk(0);
     temp = ptr;
-    ptr = sbrk(size+EXTRA);
+    ptr = sbrk(size+align+sizeof(size_t)+EXTRA);
     if (ptr == (void*)-1) return NULL;
     temp->next=NULL;
-    temp->size = size;
+    temp->size = size+align;
     temp->status = 1;
     return temp;
 }
@@ -37,75 +17,83 @@ struct myMem *newMem (unsigned int size, unsigned int align){
 struct myMem* findFreeSpace(struct myMem** prev,unsigned int size,unsigned int align){
     struct myMem* cur;
     cur = Head;
-    while (cur && !(cur->size>=size && cur->status==0)){
+    while (cur && !(cur->size>=size+align && cur->status==0)){
         *prev = cur;
         cur = cur ->next;
     }
     return cur;
 }
 
-void* aligned_malloc(unsigned int size, unsigned int align){
+struct myMem* split(struct myMem** current,unsigned int size,unsigned int align){
+    struct myMem* cur = *current;
     struct myMem* temp;
-    if (!Head) {
-        temp = newMem(size,align);
-        if (!temp) return NULL;
-        Head = temp;
-        printf("%d\n",&*temp);
-        printf("%d\n",&*(temp+1));
-        printf("%d\n",sbrk(0));
-        return (temp+1);
-    }
-    else {
-        struct myMem* prev=Head;
-        temp = findFreeSpace(&prev,size,align);
-        if (!temp) {
-            prev->next = newMem(size,align);
-            temp=prev->next;
-            printf("%d\n",&*temp);
-            printf("%d\n",&*(temp+1));
-            printf("%d\n",sbrk(0));
-            return prev->next+1;
-        }
-        else {
-            switch (1) {
-                case 1:
-                    if (temp->size > size + EXTRA) {
-                        printf("hellooooooooooooooooooooooooooooooooooooooooo\n");
-                        void * maxAddress = temp+1;
-                        maxAddress+=temp->size;
-                        printf("%d max\n",&*maxAddress);
-                        void * tempptr = temp+1;
-                        printf("%d pointer address\n",&*tempptr);
-                        tempptr += size;
-                        tempptr = alignAdress(tempptr,align) + EXTRA;
-                        printf("%d if we split\n",&*tempptr);
-                        if ((int)&*tempptr < (int)&*maxAddress){
-                            splitMem(&temp,size,align);
-                        }
-
-                    }
-                    
-                case 2:
-                    temp->status=1;
-                    return (temp+1);
-                default:    
-                    break;
-            }
-            
-        }
-
-    }
-    
+    void * ptr = (void*)(cur+1);
+    ptr += size + sizeof(size_t) + align;
+    temp = ptr;
+    temp->size= cur->size - (size +align +EXTRA+sizeof(size_t));
+    cur ->size = size + align;
+    temp->status = 0;
+    temp->next = cur->next;
+    cur->next = temp;
+    return cur;
 }
 
-//void * aligned_free (void *ptr );
+void* aligned_malloc(unsigned int size, unsigned int align){
+    struct myMem* temp;
+    if (!Head){
+        
+        temp = newMem(size,align);
+        if (!temp) return NULL;
+        Head= temp;
+    }
+    else {
+        struct myMem* prev = Head;
+        temp = findFreeSpace(&prev,size,align);
+        if (!temp) {
+            
+            prev->next = newMem(size,align);
+            if (!prev->next) return NULL;
+            temp = prev->next;
+        }
+        else {
+            if (temp->size > size+ align +EXTRA + sizeof(size_t)){
+                temp = split(&temp,size,align);
+                temp->status=1;
+            }
+            else {
+                temp->status = 1;
+            }
+        }
+    }
+    void *ptr1 = temp+1;
+    size_t addr=(size_t)ptr1+align+sizeof(size_t);
+    void *ptr2 = (void *)(addr - (addr%align));
+    *((size_t *)ptr2-1)=(size_t)ptr1;
+    return ptr2;
+}
 
-
-int main(){
-    void *ptr = aligned_malloc(30,5);
-    void *ptr2 = aligned_malloc(30,5);
-    ((struct myMem*)Head)->status =0;
-    void* ptr3 = aligned_malloc(10,6);
-
+struct myMem* merge(struct myMem** current){
+    struct myMem* cur = *current;
+    if (cur->next)
+        if (cur->next->status == 0){
+            cur->size += EXTRA + sizeof(size_t)+cur->next->size;
+            cur->next = cur->next->next;
+        }
+    return cur;
+    
+}
+void* aligned_free (void *ptr ){
+    void * res = (void *)(*((size_t *) ptr-1));
+    struct myMem* cur = (struct myMem*)res - 1;
+    cur->status=0;
+    cur = merge(&cur);
+    struct myMem* temp = Head;
+    if (cur!=temp){
+        while (temp->next!= cur)
+            temp = temp->next;
+        if (temp->status == 0) merge(&temp);
+    }
+    ptr = NULL;
+    return NULL;
 }
 
