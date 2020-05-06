@@ -2,7 +2,7 @@
 #include <unistd.h>
 
 
-struct myMem {
+struct myMem {//mem block identifier
     unsigned int size;
     struct myMem* next;
     int status;
