@@ -18,7 +18,6 @@ int main(){
     printf("ptr2 1st byte address %zd\n",&*ptr2);
     printf("releasing ptr...\n");
     aligned_free(ptr);
-    if (!ptr) printf("released\n");
     printf("third call, make a void pointer with size of 1bytes and align 1024- it should point to the address which ptr point to before we free it\n");
     void* ptr3 = aligned_malloc(1,1024);
     printf("ptr3 1st byte address %zd\n",&*ptr3);
