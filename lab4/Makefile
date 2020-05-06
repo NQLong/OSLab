@@ -8,7 +8,7 @@ ex1.o : ex1.c ex1.h
 	gcc -c ex1.c
 
 clean:
-	rm -f *.o mygrep
+	rm -f *.o ex1
 
 get:
 	git pull
