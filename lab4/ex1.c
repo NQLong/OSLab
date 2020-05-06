@@ -91,7 +91,7 @@ goal: retrun pointer point to address aligned by align
 and have size of size
 /////////////////////////////////////////*/
 void* aligned_malloc(unsigned int size, unsigned int align){
-    if (size < = 0) return NULL;
+    if (size <= 0) return NULL;
     struct myMem* temp;
     if (!Head){
         
