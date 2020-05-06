@@ -160,6 +160,8 @@ void* aligned_free (void *ptr ){
             temp = temp->next;
         if (temp->status == 0) merge(&temp);
     }
+    void **res2 = &ptr;
+    *res2 = NULL;
     ptr = NULL;
     return ptr;
 }
