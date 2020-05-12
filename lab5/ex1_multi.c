@@ -31,10 +31,11 @@ int main(int argc,char *argv[]){
         fprintf(stderr,"%d must be>=0\n",atoi(argv[1]));
         return-1;
     }
-    printf("here");fflush(stdout);
+    printf("here\n");fflush(stdout);
     pthread_t tid[2];
     pthread_attr_t attr;
     long int N = atoi(argv[1]);
+    printf("here\n");fflush(stdout);
     /*get the default attributes*/
     pthread_attr_init(&attr);
     /*create the thread*/
