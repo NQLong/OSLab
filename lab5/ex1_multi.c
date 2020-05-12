@@ -32,7 +32,7 @@ int main(int argc,char *argv[]){
         return-1;
     }
     printf("here\n");fflush(stdout);
-    pthread_t tid[2];
+    pthread_t tid[4];
     pthread_attr_t attr;
     long int N = atoi(argv[1]);
     printf("here\n");fflush(stdout);
