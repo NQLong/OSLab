@@ -6,8 +6,8 @@
 long int In= 0;
 
 void* Calculate(void* Num){
-    int N =(int)Num;
-    
+    //int N =(int)Num;
+    int N =100;
     int i =0;
     int count = 0;
     for (i =0; i < N; i++){
@@ -21,7 +21,7 @@ void* Calculate(void* Num){
     pthread_exit(0);
 }
 
-int main(int argc,char ** argv){
+int main(int argc,char *argv[]){
     clock_t begin = clock();
     if(argc!=2){
         fprintf(stderr,"usage: a.out <integer value>\n");
@@ -31,6 +31,7 @@ int main(int argc,char ** argv){
         fprintf(stderr,"%d must be>=0\n",atoi(argv[1]));
         return-1;
     }
+    printf("here");fflsuh(stdout);
     pthread_t tid[2];
     pthread_attr_t attr;
     long int N = atoi(argv[1]);
