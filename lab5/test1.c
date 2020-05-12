@@ -1,5 +1,6 @@
 #include <pthread.h>
 #include <stdio.h>
+
 #define NUM_THREADS 5
 void *PrintHello(void* threadid)
 {
@@ -18,7 +19,7 @@ int main(int argc,char *argv[])
         rc = pthread_create(&threads[t],NULL,PrintHello,(void*)t);
         if(rc){
             printf("ERROR; return from pthread_create() is %d\n",rc);
-            //exit(−1);
+            exit(-1);
         }
     }
     /*Last thing that main() should do*/
