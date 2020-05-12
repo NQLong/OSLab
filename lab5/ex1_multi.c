@@ -6,8 +6,8 @@
 long int In= 0;
 
 void* Calculate(void* Num){
-    //int N =(int)Num;
-    int N =100;
+    int N =(int)Num;
+   
     int i =0;
     int count = 0;
     for (i =0; i < N; i++){
@@ -31,11 +31,11 @@ int main(int argc,char *argv[]){
         fprintf(stderr,"%d must be>=0\n",atoi(argv[1]));
         return-1;
     }
-    printf("here\n");fflush(stdout);
+   
     pthread_t tid[4];
     pthread_attr_t attr;
     long int N = atoi(argv[1]);
-    printf("here\n");fflush(stdout);
+   
     /*get the default attributes*/
     pthread_attr_init(&attr);
     /*create the thread*/
@@ -45,10 +45,10 @@ int main(int argc,char *argv[]){
     /*wait for the thread to exit*/
     for (i = 0;i < 4; i++)
         pthread_join(tid[i],NULL);
-    printf("%d\n",In);
+    printf("%ld\n counted",In);
     float pi = 4*(float)In/N;
-    printf("%f\n",pi);
+    printf("%f\n result",pi);
     clock_t end = clock();
     double time_spent = (double)(end - begin)/ CLOCKS_PER_SEC;
-    printf("%lf",time_spent);
+    printf("%lf time",time_spent);
 }
