@@ -37,10 +37,11 @@ int main(int argc,char ** argv){
     /*get the default attributes*/
     pthread_attr_init(&attr);
     /*create the thread*/
-    for (int i = 0;i < 4; i++)
+    int i = 0;
+    for (i = 0;i < 4; i++)
         pthread_create(&tid[i],&attr,Calculate,(void*)(N/4));
     /*wait for the thread to exit*/
-    for (int i = 0;i < 4; i++)
+    for (i = 0;i < 4; i++)
         pthread_join(tid[i],NULL);
     printf("%d\n",In);
     float pi = 4*(float)In/N;
