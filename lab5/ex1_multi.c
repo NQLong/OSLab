@@ -43,11 +43,11 @@ int main(int argc,char *argv[]){
     for (i = 0;i < 4; i++)
         pthread_create(&tid[i],&attr,Calculate,(void*)(N/4));
     /*wait for the thread to exit*/
-    // for (i = 0;i < 4; i++)
-    //     pthread_join(tid[i],NULL);
+    for (i = 0;i < 4; i++)
+        pthread_join(tid[i],NULL);
     printf("%ld counted\n",In);
-    float pi = 4*(float)In/N;
-    printf("%f result\n",pi);
+    double pi = 4*(float)In/N;
+    printf("%lf result\n",pi);
     clock_t end = clock();
     double time_spent = (double)(end - begin)/ CLOCKS_PER_SEC;
     printf("%lf time",time_spent);
