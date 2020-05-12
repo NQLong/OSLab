@@ -4,10 +4,10 @@
 #include <stdlib.h>
 
 long int In= 0;
+pthread_mutex_t lock;
 
 void* Calculate(void* Num){
     int N =(int)Num;
-   
     int i =0;
     int count = 0;
     for (i =0; i < N; i++){
@@ -15,9 +15,9 @@ void* Calculate(void* Num){
         float y = (float)rand()/(float)(RAND_MAX);
         if (x*x+y*y<=1) count +=1;
     }
-
+    pthread_mutex_lock(&lock); 
     In+=count;
-
+    pthread_mutex_unlock(&lock); 
     pthread_exit(0);
 }
 
