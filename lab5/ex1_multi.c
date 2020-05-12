@@ -10,7 +10,7 @@ void* Calculate(void* Num){
     
     int i =0;
     int count = 0;
-    for (int i =0; i < N; i++){
+    for (i =0; i < N; i++){
         float x = (float)rand()/(float)(RAND_MAX);
         float y = (float)rand()/(float)(RAND_MAX);
         if (x*x+y*y<=1) count +=1;
