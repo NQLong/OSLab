@@ -31,7 +31,7 @@ int main(int argc,char *argv[]){
         fprintf(stderr,"%d must be>=0\n",atoi(argv[1]));
         return-1;
     }
-    printf("here");fflsuh(stdout);
+    printf("here");fflush(stdout);
     pthread_t tid[2];
     pthread_attr_t attr;
     long int N = atoi(argv[1]);
