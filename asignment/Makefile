@@ -5,8 +5,8 @@ first:
 	mkdir ~/kernelbuild
 	cd ~/kernelbuild
 	wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-4.4.21.tar.xz
-	tar -xvJf linux -4.4.21.tar.xz
-second:
+	tar -xvJf linux-4.4.21.tar.xz
+secondcd 
 	cp /boot/config-3.13.0-32-generic ~/kernelbuild/.config
 	sudo apt-get install libncurses5-dev
 	cd ~/kernelbuild/linux-4.4.21
