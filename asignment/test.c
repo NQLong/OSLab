@@ -3,7 +3,7 @@
 #include <unistd.h>
 
 int main(){
-    struct task_truct* temp = current;
+    struct task_truct* temp;
     temp = find_task_by_vpid(getpid());
     if (temp!=NULL) {
         struct mm_struct *mmtemp= temp->mm;
