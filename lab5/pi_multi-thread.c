@@ -78,8 +78,13 @@ int main(int argc,char *argv[]){
     double Se_time_spent = (double)serialTime/ CLOCKS_PER_SEC;
     double pi = 4*(float)In/N;
     printf("pi = %lf\n",pi);
-    printf("multi-thread 's execute time%lf\n",Mul_time_spent);
-    printf("multi-thread 's execute time%lf\n",Se_time_spent);
-    printf("speed-up : %lf",Mul_time_spent/Se_time_spent);
-    
+    printf("multi-thread 's execute time%lf\n", Mul_time_spent);
+    printf("single-thread 's execute time%lf\n", Se_time_spent);
+    double speed-up;
+    if (!(Se_time_spent == 0.0 || Mul_time_spent == 0.0)){
+        speed-up = Mul_time_spent/Se_time_spent;
+        printf("speed-up : %lf",Mul_time_spent/Se_time_spent);
+    } else {
+        printf("cant calculate speed-up");
+    }
 }
