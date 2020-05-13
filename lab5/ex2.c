@@ -3,9 +3,8 @@
 pthread_mutex_t lock;
 
 void *hello (void *tid ) {
-
     printf("Hello from thread %d\n" , (int)tid ) ;
-
+    pthread_exit(0);
 }
 int main() {
     pthread_t tid [10] ;

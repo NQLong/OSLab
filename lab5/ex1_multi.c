@@ -3,6 +3,8 @@
 #include <pthread.h>
 #include <stdlib.h>
 
+clock_t begin;
+
 long int In= 0;
 pthread_mutex_t lock;
 
@@ -15,6 +17,9 @@ void* Calculate(void* Num){
         float y = (float)rand()/(float)(RAND_MAX);
         if (x*x+y*y<=1) count +=1;
     }
+    clock_t end = clock();
+    double time_spent = (double)(end - begin)/ CLOCKS_PER_SEC;
+    printf("%lf finish time\n",time_spent);
     pthread_mutex_lock(&lock); 
     In+=count;
     pthread_mutex_unlock(&lock); 
@@ -22,7 +27,7 @@ void* Calculate(void* Num){
 }
 
 int main(int argc,char *argv[]){
-    clock_t begin = clock();
+    begin = clock();
     if(argc!=2){
         fprintf(stderr,"usage: a.out <integer value>\n");
         return -1;
