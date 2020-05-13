@@ -19,7 +19,7 @@ void* Calculate(void* Num){
     }
     clock_t end = clock();
     double time_spent = (double)(end - begin)/ CLOCKS_PER_SEC;
-    printf("%lf finish time\n",time_spent);
+    printf("%lf finish time\n",time_spent);fflush(stdout);
     pthread_mutex_lock(&lock); 
     In+=count;
     pthread_mutex_unlock(&lock); 
