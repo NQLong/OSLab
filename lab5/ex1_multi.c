@@ -25,11 +25,11 @@ int main(int argc,char *argv[]){
     clock_t begin = clock();
     if(argc!=2){
         fprintf(stderr,"usage: a.out <integer value>\n");
-        return-1;
+        return -1;
     }
     if(atoi(argv[1])<0){
         fprintf(stderr,"%d must be>=0\n",atoi(argv[1]));
-        return-1;
+        return -1;
     }
    
     pthread_t tid[4];
