@@ -10,7 +10,7 @@ int main() {
     pthread_t tid [10] ;
     int i;
     for ( i = 0; i < 10; i++) {
-        if (i>0) pthread_join(tid[i-1],NULL);
+        if (i>0) pthread_join(tid[i-1],NULL);          //this is what i add to the program in description
         pthread_create(&tid[i] , NULL, hello , (void*)i) ;
     }
     pthread_exit (NULL);

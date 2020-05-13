@@ -2,6 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/*
+ * name:        Serial
+ * return type: void *
+ * @param:      Num - a void pointer keep value of number of dots 
+ * goal:        this is simulate to Calculate function but we just use
+ *              this funtion for calculate the execute time of this
+ *              program when we run on single thread
+*/
 int Calculate(int N){
     int i =0;
     int count = 0;
