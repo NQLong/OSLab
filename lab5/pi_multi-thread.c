@@ -79,6 +79,6 @@ int main(int argc,char *argv[]){
     printf("pi = %lf\n",pi);
     printf("multi-thread 's execute time%lf\n",Mul_time_spent);
     printf("multi-thread 's execute time%lf\n",Se_time_spent);
-    printf("speed-up : %ld"Mul_time_spent/Se_time_spent);
+    printf("speed-up : %ld",Mul_time_spent/Se_time_spent);
     
 }
