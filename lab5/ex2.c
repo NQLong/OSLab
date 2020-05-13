@@ -14,5 +14,5 @@ int main() {
        
         pthread_create(&tid[i] , NULL, hello , (void*)i) ;
     }
-    pthread_exit (NULL)
+    pthread_exit (NULL);
 }
