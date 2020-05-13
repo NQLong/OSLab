@@ -32,6 +32,7 @@ void* Serial(void* Num){
     clock_t serialBegin = clock();
     int N = (int)Num;
     int count = 0;
+    int i =00;
     for (i =0; i < N; i++){
         float x = (float)rand()/(float)(RAND_MAX);
         float y = (float)rand()/(float)(RAND_MAX);
@@ -79,6 +80,6 @@ int main(int argc,char *argv[]){
     printf("pi = %lf\n",pi);
     printf("multi-thread 's execute time%lf\n",Mul_time_spent);
     printf("multi-thread 's execute time%lf\n",Se_time_spent);
-    printf("speed-up : %ld",Mul_time_spent/Se_time_spent);
+    printf("speed-up : %lf",Mul_time_spent/Se_time_spent);
     
 }
