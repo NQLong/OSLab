@@ -19,7 +19,7 @@ asmlinkage long sys_procmem(int pid, struct proc_segs* info){
 	if (!temp) return -1;
 	info->mssv = 1812917;
 	struct mm_struct *pmm;
-	pmm = tenmp->mm;
+	pmm = temp->mm;
 	info->start_code = pmm->start_code;
 	info->start_data = pmm->start_data;
 	info->start_heap = pmm->start_brk;
