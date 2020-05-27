@@ -69,20 +69,21 @@ int main(int argc,char *argv[]){
     }
    
     pthread_t tid[MAX_THREADS];
-    pthread_attr_t attr;
+    pthread_attr_t attr[MAX_THREADS];
     long int N = atoi(argv[1]);
    
 
-    pthread_attr_init(&attr);
+    
 
     int i = 0;
     begin = clock();
     //generate threads
     for (i = 0;i < MAX_THREADS; i++){
+        pthread_attr_init(&attr[i]);
         if (i != MAX_THREADS-1)
-            pthread_create(&tid[i],&attr,Calculate,(void*)(N/4));
+            pthread_create(&tid[i],&attr[i],Calculate,(void*)(N/4));
         else 
-            pthread_create(&tid[i],&attr,Serial,(void*)(N));
+            pthread_create(&tid[i],&attr[i],Serial,(void*)(N));
     }
     clock_t Xtime;
     //wait for all thread exit
