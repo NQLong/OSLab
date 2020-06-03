@@ -1,12 +1,17 @@
+#include <sys/syscall.h>
 #include <stdio.h>
 #include <linux/sched.h>
-#include <unistd.h>
 
 int main(){
-    struct task_truct* temp;
-    temp = find_task_by_vpid(getpid());
-    if (temp!=NULL) {
-        struct mm_struct *mmtemp= temp->mm;
-        printf("%ld",mmtemp->startcode);
-    }
+	long sysvalue;
+	unsigned long info[10];
+	int pid = getpid();
+	printf("pid: %d\n",pid);
+	sysvalue = syscall(546,pid,info);
+	int i =0;
+	for (i =0;i <10;i++) {
+		printf("%lx\n",info[i]);
+	}
+	for(;;);
 }
+
