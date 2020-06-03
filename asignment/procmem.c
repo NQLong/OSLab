@@ -14,9 +14,9 @@ unsigned long start_stack;
 };
 
 asmlinkage long sys_procmem( int pid, struct proc_segs * info) {
-    struct task_truct *temp;
+    struct task_struct *temp;
     temp = find_task_by_vpid(pid);
-    if (!temp) return 1;
+    if (!temp) return -1;
     info->mssv = 1812917;
     struct mm_struct *pmm;
     pmm = temp->mm;
@@ -26,6 +26,6 @@ asmlinkage long sys_procmem( int pid, struct proc_segs * info) {
     info->start_stack = pmm->start_stack;
     info->end_code = pmm->end_code;
     info->end_data = pmm->end_data;
-    info->end_heap = pmm->sbrk;
+    info->end_heap = pmm->brk;
     return 1;
 }

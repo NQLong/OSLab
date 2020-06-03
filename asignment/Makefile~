@@ -9,5 +9,6 @@ first:
 second:
 	cp /boot/config-3.13.0-32-generic ~/kernelbuild/.config
 	sudo apt-get install libncurses5-dev
+	y
 	cd ~/kernelbuild/linux-4.4.21
 	make ncofig
